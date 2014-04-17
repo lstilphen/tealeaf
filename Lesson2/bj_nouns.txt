@@ -1,0 +1,24 @@
+Nouns = Card, Deck, Player, Dealer, Total
+Verbs = deal, shuffle, hit, stay
+
+class Deck
+  suits
+  values
+  shuffle
+
+class Card
+  suit
+  value
+  deal
+
+class Player
+  card
+  hit
+  stay
+  total
+
+class Dealer
+  card
+  hit
+  stay
+  total
