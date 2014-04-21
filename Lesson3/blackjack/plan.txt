@@ -1,0 +1,55 @@
+Start Over link
+  - redirect to "New Game" template
+  - clear cache
+  - show at top of all pages
+
+What Is Your Name?
+  - "New Game" template
+  - text input form
+  - saves input for session
+  - upon input direct to "Bet"
+
+Make a Bet
+  - "Bet" template
+  - show name + starting amount $
+  - text input form
+    - must be an integer
+    - amount must be <= total $
+    - error if these not met and stay at Bet page
+  - save amount for that round
+  - upon submit direct to "Game" template
+
+Game
+  - Deck with all cards (and image for back of card)
+    - remove card from deck with each draw for that session
+  - Dealer's Cards block
+    - pull 2 cards, 1 hidden
+  - Player's Cards block
+    - pull 2 cards, both faces shown
+  - show player total
+  - show total $ and bet amount for round
+  - button for hit and stay
+  - for Hit button
+    - add another card to Player's Cards block
+    - update card total
+    - keep showing buttons and repeating hit action until Stay or Bust
+    - if Bust
+      - skip Dealer turn and show outcome of losing
+  - for Stay button
+    - begin Dealer turn
+    - button for Show Dealer Card
+    - add another card to dealers hand while total is under 17
+    - update total
+  - evaluate outcome
+    - alert bar at top with outcome, colored
+    - if player wins, add bet amount to total $
+    - if player loses, deduct bet amount from total $
+    - save $amount for session
+  - after outcome, show Play Again? with yes or no
+    - if yes, redirect to "Bet" template, keeping name and $total
+    - if no, redirect to "Game Over" template
+
+Game Over
+  - Total ending $
+  - link to start over, redirect to "New Game"
+  - clear saved name and total
