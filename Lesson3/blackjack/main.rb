@@ -4,14 +4,10 @@ require 'sinatra'
 set :sessions, true
 
 get '/' do
-  "Hello!"
+  erb :new_game
 end
 
-get '/template' do
-  erb :template
-end
-
-get '/nested' do
-  erb :"/nested/nestedin"
+post '/savename' do
+  params['username']
 end
 

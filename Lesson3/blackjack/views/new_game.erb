@@ -1,0 +1,11 @@
+<% if !@username %>
+<form action = '/savename' method = 'post'>
+  <fieldset>
+    <legend>Welcome to Blackjack!</legend>
+    <label>What is your name?</label>
+    <input type="text" name = 'username'>
+    <br />
+    <button type="submit" class="btn">Submit</button>
+  </fieldset>
+</form>
+<% end %>
