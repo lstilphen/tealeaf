@@ -35,13 +35,15 @@ helpers do
   end
 
   def winner!(msg)
-    @success = "<strong>#{session[:player]} wins!</strong> #{msg}"
+    session[:pot] += session[:bet].to_i
+    @success = "<strong>#{session[:player]} wins!</strong> #{msg} #{session[:player]} now has $#{session[:pot]}."
     @show_buttons = false
     @play_again = true
   end
 
   def loser!(msg)
-    @error = "<strong>#{session[:player]} loses!</strong> #{msg}"
+    session[:pot] -= session[:bet].to_i
+    @error = "<strong>#{session[:player]} loses!</strong> #{msg} #{session[:player]} now has $#{session[:pot]}."
     @show_buttons = false
     @play_again = true
   end
@@ -77,6 +79,7 @@ post '/savename' do
     halt erb(:new_player)
   end
 
+  session[:pot] = 500
   session[:player] = params[:player]
   redirect '/bet'
 end
@@ -86,8 +89,17 @@ get '/bet' do
 end
 
 post '/setbet' do
+  if params[:bet].empty?
+    @error = "Please enter a bet."
+    halt erb(:bet)
+  elsif params[:bet].to_i > session[:pot].to_i
+    @error = "You can't bet more than you have!"
+    halt erb(:bet)
+  end
+
   session[:bet] = params[:bet]
   redirect '/game'
+    
 end
 
 get '/game' do
@@ -117,7 +129,7 @@ post '/game/player/hit' do
       loser!("#{session[:player]} busted with #{playertotal}.")
     end
   
-  erb :game
+  erb :game #layout:false
   
 end
 
