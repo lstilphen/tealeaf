@@ -36,20 +36,20 @@ helpers do
 
   def winner!(msg)
     session[:pot] += session[:bet].to_i
-    @success = "<strong>#{session[:player]} wins!</strong> #{msg} #{session[:player]} now has $#{session[:pot]}."
+    @winner = "<strong>#{session[:player]} wins!</strong> #{msg} #{session[:player]} now has $#{session[:pot]}."
     @show_buttons = false
     @play_again = true
   end
 
   def loser!(msg)
     session[:pot] -= session[:bet].to_i
-    @error = "<strong>#{session[:player]} loses!</strong> #{msg} #{session[:player]} now has $#{session[:pot]}."
+    @loser = "<strong>#{session[:player]} loses!</strong> #{msg} #{session[:player]} now has $#{session[:pot]}."
     @show_buttons = false
     @play_again = true
   end
 
   def tie!(msg)
-    @success = "<strong>It's a tie!</strong> #{msg}"
+    @winner = "<strong>It's a tie!</strong> #{msg}"
     @show_buttons = false
     @play_again = true
   end
@@ -129,7 +129,7 @@ post '/game/player/hit' do
       loser!("#{session[:player]} busted with #{playertotal}.")
     end
   
-  erb :game #layout:false
+  erb :game, layout: false
   
 end
 
@@ -162,7 +162,7 @@ get '/game/dealer' do
     @dealer_button = true
   end
 
-  erb :game
+  erb :game, layout: false
 end
 
 post '/game/dealer/hit' do
